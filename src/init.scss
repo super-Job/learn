@@ -1,0 +1,24 @@
+// border
+$border-base1:1px solid #ccc;
+
+
+
+// color
+$theme-background-color:black;
+
+
+
+
+// mixin
+@mixin flex-center {
+  display        : flex;
+  justify-content: center;
+  align-items    : center;
+}
+
+@mixin flex-base1($jc, $ai) {
+  display        : flex;
+  justify-content: $jc;
+  align-items    : $ai;
+}
+
