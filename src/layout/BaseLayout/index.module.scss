@@ -1,0 +1,12 @@
+@import '@/init.scss';
+
+.motu-base-layout {
+  height          : 100%;
+  width           : 100%;
+  background-color: $theme-background-color;
+
+
+  &-nav {
+    width: 100%;
+  }
+}

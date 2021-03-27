@@ -7,7 +7,12 @@ function BaseLayout(props) {
 
   return (
     <div className={styles['motu-base-layout']}>
+      <div className={styles['motu-nav']}>
 
+      </div>
+      <div className={styles['motu-contaienr']}>
+        <div className={styles['motu-menu']}></div>
+      </div>
     </div>
   )
 
