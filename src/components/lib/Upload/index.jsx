@@ -1,11 +1,28 @@
-import React, { useRef, Children, cloneElement, isValidElemnt, isValidElement } from 'react';
-import Button from '../Button';
+import React, { useRef, Children, cloneElement, isValidElement, useState, useEffect } from 'react';
+import { file } from '@/common/utils';
 import cls from 'classnames';
 import styles from './index.module.scss';
 
 function Upload(props) {
-  const { className, children } = props;
+  const { className, children, onChange } = props;
   const input = useRef(null);
+
+
+
+  const openUploadDialog = () => {
+    if (!input.current) return;
+    input.current.click();
+  }
+
+  const onUploadChange = (e) => {
+    // 获取文件
+    const files = e.target.files;
+    const fileList = Object.entries(files).map(([_, f]) => f);
+    const responseList = file.getFileURL(fileList);
+    if (typeof onChange === 'function') {
+      onChange(responseList);
+    }
+  }
 
   const childrenRender = () => {
     return Children.map(children, (child => {
@@ -16,7 +33,7 @@ function Upload(props) {
         return cloneElement(child, {
           ...childProps,
           onClick: () => {
-            !!input.current && input.current.click();
+            openUploadDialog();
             if (typeof onClick === 'function') {
               onClick();
             }
@@ -27,22 +44,75 @@ function Upload(props) {
   }
 
   return (
-    <div className={cls(styles.input, className)}>
+    <div className={cls(styles.input, className)} onClick={openUploadDialog}>
       {childrenRender()}
-      <input ref={input} type="file" />
+      <input ref={input} type="file" onChange={onUploadChange} />
     </div>
   )
 }
 
-Upload.DragUpload = (props) => {
-  const { children } = props;
+const DragUpload = (props) => {
+  const { children, onChange } = props;
+  const dropBox = useRef(null);
+
+  useEffect(
+    () => {
+      if (!dropBox.current) return;
+      const box = dropBox.current;
+      box.addEventListener("dragenter", onDragEnter, false);
+      box.addEventListener('dragover', onDragOver, false);
+      box.addEventListener('drop', onDrop, false);
+
+      return () => {
+        box.removeEventListener("dragenter", onDragEnter, false);
+        box.removeEventListener('dragover', onDragOver, false);
+        box.removeEventListener('drop', onDrop, false);
+      }
+    },
+    [dropBox]
+  )
+
+  function onDragEnter(e) {
+    e.stopPropagation();
+    e.preventDefault();
+  }
+
+  function onDragOver(e) {
+    e.stopPropagation();
+    e.preventDefault();
+  }
+
+  function onDrop(e) {
+    e.stopPropagation();
+    e.preventDefault();
+    const { files } = e.dataTransfer;
+    const fileList = Object.entries(files).map(([_, f]) => f);
+    const responseList = file.getFileURL(fileList);
+    console.log(responseList);
+
+    
+    if (typeof onChange === 'function') {
+      onChange(responseList)
+    }
+
+  }
+
+
+  function uploadChange(files) {
+    if (typeof onChange === 'function') {
+      onChange(files);
+    }
+  }
+
+
   return (
-    <div className={styles['drag-upload']}>
-      <Upload className={styles.upload}>
+    <div ref={dropBox} className={styles['drag-upload']} >
+      <Upload className={styles.upload} onChange={uploadChange}>
         {children}
       </Upload>
     </div>
   )
 }
 
+Upload.DragUpload = DragUpload;
 export default Upload;
