@@ -11,7 +11,7 @@ function BaseLayout(props) {
 
       </div>
       <div className={styles['motu-contaienr']}>
-        <div className={styles['motu-menu']}></div>
+        
       </div>
     </div>
   )

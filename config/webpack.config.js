@@ -155,6 +155,14 @@ module.exports = function (webpackEnv) {
         }
       );
     }
+
+    // loaders.push({
+    //   loader: 'sass-resources-loader',
+    //   options: {
+    //     resources: path.resolve(__dirname, '../src/init.scss'),
+    //   }
+    // });
+
     return loaders;
   };
 
@@ -500,6 +508,12 @@ module.exports = function (webpackEnv) {
             // Opt-in support for SASS (using .scss or .sass extensions).
             // By default we support SASS Modules with the
             // extensions .module.scss or .module.sass
+            // {
+            //   loader: ,
+            //   options: {
+            //     resources: path.resolve(__dirname, '../src/init.scss'),
+            //   }
+            // },
             {
               test: sassRegex,
               exclude: sassModuleRegex,
@@ -512,6 +526,7 @@ module.exports = function (webpackEnv) {
                 },
                 'sass-loader'
               ),
+
               // Don't consider CSS imports dead code even if the
               // containing package claims to have no side effects.
               // Remove this when webpack adds a warning or an error for this.
@@ -522,18 +537,26 @@ module.exports = function (webpackEnv) {
             // using the extension .module.scss or .module.sass
             {
               test: sassModuleRegex,
-              use: getStyleLoaders(
-                {
-                  importLoaders: 3,
-                  sourceMap: isEnvProduction
-                    ? shouldUseSourceMap
-                    : isEnvDevelopment,
-                  modules: {
-                    getLocalIdent: getCSSModuleLocalIdent,
+              use: [
+                ...getStyleLoaders(
+                  {
+                    importLoaders: 3,
+                    sourceMap: isEnvProduction
+                      ? shouldUseSourceMap
+                      : isEnvDevelopment,
+                    modules: {
+                      getLocalIdent: getCSSModuleLocalIdent,
+                    },
                   },
-                },
-                'sass-loader'
-              ),
+                  'sass-loader'
+                ),
+                {
+                  loader: 'sass-resources-loader',
+                  options: {
+                    resources: path.resolve(__dirname, '../src/init.scss'),
+                  }
+                }
+              ],
             },
             // "file" loader makes sure those assets get served by WebpackDevServer.
             // When you `import` an asset, you get its (virtual) filename.
