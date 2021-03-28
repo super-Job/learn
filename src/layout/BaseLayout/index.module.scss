@@ -1,15 +1,33 @@
-.motu-base-layout {
-  height          : 100%;
-  width           : 100%;
-  background-color: $theme-background-color;
+.wotu {
+  $nav-height: 60px;
+
+  &-base-layout {
+    height          : 100%;
+    width           : 100%;
+    background-color: $theme-background-color;
+  }
 
 
   &-nav {
-    height          : 60px;
+    height          : $nav-height;
     width           : 100%;
-    background-color: #333;
+    background-color: $default-color1-2;
+    display         : flex;
   }
 
-  &-container {}
+  &-logo {
+    width       : 100px;
+    height      : 100%;
+    margin-right: 12px;
+  }
+
+  &-menu {
+    height: 100%;
+    flex  : 1;
+  }
+
+  &-container {
+    height: calc(100% - #{$nav-height});
+  }
 
 }
