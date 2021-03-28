@@ -44,7 +44,7 @@ function Upload(props) {
   }
 
   return (
-    <div className={cls(styles.input, className)} onClick={openUploadDialog}>
+    <div className={cls(styles.input, className)}>
       {childrenRender()}
       <input ref={input} type="file" onChange={onUploadChange} />
     </div>
