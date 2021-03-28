@@ -1,5 +1,6 @@
 import React, { PureComponent } from 'react';
 import Upload from '@/components/lib/Upload';
+import Button from '@/components/lib/Button';
 import styles from './index.module.scss';
 
 class VideoMark extends PureComponent {
@@ -15,7 +16,15 @@ class VideoMark extends PureComponent {
       <div className={styles['motu-video-mark']}>
         <div className={styles.left}>
           <div className={styles.upload}>
-            <Upload />
+            {/* <Upload.DragUpload>
+
+            </Upload.DragUpload> */}
+
+            <Upload>
+              <Button>
+                上传文件
+              </Button>
+            </Upload>
           </div>
         </div>
         <div className={styles.right}>
