@@ -1,12 +1,13 @@
 import React from 'react';
+import cls from 'classnames';
 import styles from './index.module.scss';
 
 function Button(props) {
-  const { children, icon, } = props;
+  const { children, className, onClick } = props;
 
 
   return (
-    <button className={styles.button}>
+    <button className={cls(styles.button, className)} onClick={onClick}>
       <span>{children}</span>
     </button>
   )
