@@ -7,8 +7,6 @@ function Upload(props) {
   const { className, children, onChange } = props;
   const input = useRef(null);
 
-
-
   const openUploadDialog = () => {
     if (!input.current) return;
     input.current.click();

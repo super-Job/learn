@@ -26,13 +26,11 @@ class VideoMark extends PureComponent {
       <div className={styles['motu-video-mark']}>
         <div className={styles.left}>
           <div className={styles.upload}>
-            {/* <Upload.DragUpload>
-
-            </Upload.DragUpload> */}
-
-            <Upload onChange={this.uploadChange}>
+            <Upload
+              onChange={this.uploadChange}
+            >
               <Button>
-                上传文件
+                上传视频
               </Button>
             </Upload>
           </div>
