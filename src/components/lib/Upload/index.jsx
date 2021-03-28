@@ -88,9 +88,7 @@ const DragUpload = (props) => {
     const { files } = e.dataTransfer;
     const fileList = Object.entries(files).map(([_, f]) => f);
     const responseList = file.getFileURL(fileList);
-    console.log(responseList);
 
-    
     if (typeof onChange === 'function') {
       onChange(responseList)
     }

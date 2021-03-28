@@ -6,25 +6,35 @@ import styles from './index.module.scss';
 class VideoMark extends PureComponent {
   constructor(props) {
     super(props);
-    this.state = {};
+    this.state = {
+      fileList: [],
+    };
+  }
+
+
+  uploadChange = (files) => {
+    const { fileList } = this.state;
+    this.setState({ fileList: fileList.concat(files) });
   }
 
 
   render() {
+    console.log(this.state.fileList)
+
 
     return (
       <div className={styles['motu-video-mark']}>
         <div className={styles.left}>
           <div className={styles.upload}>
-            <Upload.DragUpload>
+            {/* <Upload.DragUpload>
 
-            </Upload.DragUpload>
+            </Upload.DragUpload> */}
 
-            {/* <Upload>
+            <Upload onChange={this.uploadChange}>
               <Button>
                 上传文件
               </Button>
-            </Upload> */}
+            </Upload>
           </div>
         </div>
         <div className={styles.right}>
