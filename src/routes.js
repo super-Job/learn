@@ -7,6 +7,7 @@ const routes = [
     Comp: Home,
     path: '/',
     exact: true,
+    redirect:'/home'
   },
   {
     Comp: Home,

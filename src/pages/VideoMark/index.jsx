@@ -21,7 +21,6 @@ class VideoMark extends PureComponent {
   render() {
     console.log(this.state.fileList)
 
-
     return (
       <div className={styles['motu-video-mark']}>
         <div className={styles.left}>
