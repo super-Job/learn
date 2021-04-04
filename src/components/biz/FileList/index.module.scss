@@ -44,6 +44,10 @@ $video-width:65px;
     &:hover {
       background-color: rgba($default-color1-3, .8);
     }
+
+    .dragIcon {
+      @include infinite-animation('up-down');
+    }
   }
 }
 

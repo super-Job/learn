@@ -77,7 +77,7 @@ function Upload(props) {
 
 // 拖拽上传组件
 const DragUpload = (props) => {
-  const { children, onChange, ...rest } = props;
+  const { children, onChange, className, ...rest } = props;
   const dropBox = useRef(null);
 
   useEffect(
@@ -140,7 +140,7 @@ const DragUpload = (props) => {
 
 
   return (
-    <div ref={dropBox} className={styles['drag-upload']} >
+    <div ref={dropBox} className={cls(styles['drag-upload'], className)} >
       <Upload className={styles.upload} onChange={uploadChange} {...rest}>
         {children}
       </Upload>

@@ -5,7 +5,7 @@ import cls from 'classnames';
 import styles from './index.module.scss';
 
 const UploadFile = (props) => {
-  const { onChange, files, type, className, buttonProps = {}, ...rest } = props;
+  const { onChange, files, type, className, buttonProps = {}, uploadType = 'default', ...rest } = props;
   const fileList = useRef([]);
 
   useEffect(
@@ -23,6 +23,9 @@ const UploadFile = (props) => {
     switch (type) {
       case FileType.Video: {
         return {
+          name: "上传视频",
+          desc: "支持上传mp4、avi、wmv、mov格式的视频",
+          limit: '视频最大不能超过100M',
           accept: ['video/mp4', 'video/avi', '.wmv', '.mov'],
           maxFileSize: 300 * 1024 * 1024,
         }
@@ -30,6 +33,7 @@ const UploadFile = (props) => {
 
       case FileType.Audio: {
         return {
+          name: "上传音频",
           accept: ['audio/mp3', 'audio/wav', 'audio/x-m4a'],
           maxFileSize: 10 * 1024 * 1024,
         }
@@ -37,6 +41,7 @@ const UploadFile = (props) => {
 
       case FileType.Image: {
         return {
+          name: "上传图片",
           accept: ['image/png', 'image/jpg', 'image/jpeg'],
           maxFileSize: 10 * 1024 * 1024,
         }
@@ -58,12 +63,14 @@ const UploadFile = (props) => {
     }
   }
 
+  const options = getOptions();
 
-  return (
+
+  if (uploadType === 'default') return (
     <div className={cls(styles.upload, className)}>
       <Upload
         onChange={onFileChange}
-        {...getOptions()}
+        {...options}
         {...rest}
       >
         <Button {...(buttonProps || {})}>
@@ -72,6 +79,26 @@ const UploadFile = (props) => {
       </Upload>
     </div>
   )
+
+  if (uploadType === 'drag') {
+    return (
+      <div className={cls(styles.dragUpload, className)}>
+        <Upload.DragUpload
+          onChange={onFileChange}
+          {...options}
+          {...rest}
+        >
+          <div className={styles.box}>
+            <span>{options?.name}</span>
+            <span>{options?.desc}</span>
+            <span>{options?.limit}</span>
+          </div>
+        </Upload.DragUpload>
+      </div>
+    )
+  }
+
+  return null;
 }
 
 export default UploadFile;

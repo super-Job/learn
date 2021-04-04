@@ -41,7 +41,8 @@ function Icon(props) {
   const {
     type,
     size = 'middle',
-    color
+    color,
+    className,
   } = props;
 
   useEffect(
@@ -53,7 +54,7 @@ function Icon(props) {
   )
 
   return (
-    <span>
+    <span className={cls(className)}>
       <svg
         className={cls(styles.svg, {
           [styles[`size-${size}`]]: typeof size === 'string'

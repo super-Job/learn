@@ -2,3 +2,20 @@
   width: 100%;
   @include flex-center();
 }
+
+.dragUpload {
+  width: 100%;
+
+  .box {
+    height   : 100px;
+    padding  : 3px;
+    font-size: 12px;
+    @include flex-base1(flex-start, center);
+    flex-direction: column;
+    color         : #aaa;
+
+    &>span {
+      margin-bottom: 5px;
+    }
+  }
+}

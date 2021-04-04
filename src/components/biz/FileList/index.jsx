@@ -39,8 +39,8 @@ function FileList(props) {
         }
       </div>
       <div className={styles.drag} onClick={onDrag}>
-        {!active && <Icon type="iconshuangjiantouxia" size="small" color="#fff" />}
-        {active && <Icon type="iconshuangjiantoushang" size="small" color="#fff" />}
+        {!active && <Icon className={styles.dragIcon} type="iconshuangjiantouxia" size="small" color="#fff" />}
+        {active && <Icon className={styles.dragIcon} type="iconshuangjiantoushang" size="small" color="#fff" />}
       </div>
     </div>
   )

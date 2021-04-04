@@ -1,6 +1,6 @@
 // border
 $border-base1      :1px solid #ccc;
-$drag-upload-border:1px dashed #ccc;
+$drag-upload-border:1px dashed rgba(#ccc, 0.3);
 
 
 // color
@@ -33,4 +33,43 @@ $default-color1-4 :#111;
   grid-template-columns: repeat(auto-fill, $cloumns);
   grid-row-gap         : $rgap;
   grid-column-gap      : $cgap;
+}
+
+
+// animate
+@mixin infinite-animation($type, $time:1s) {
+  animation: animate $time linear infinite;
+
+  @if $type=='up-down' {
+    @keyframes animate {
+      0% {
+        transform: translateY(-1.5px);
+      }
+
+      50% {
+        transform: translateY(1.5px);
+      }
+
+      100% {
+        transform: translateY(-1.5px);
+      }
+    }
+  }
+
+  @if $type=='loading' {
+    @keyframes animate {
+      0% {
+        transform: rotate(0);
+      }
+
+      50% {
+        transform: rotate(180deg);
+      }
+
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  }
+
 }
