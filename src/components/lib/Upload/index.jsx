@@ -1,27 +1,42 @@
 import React, { useRef, Children, cloneElement, isValidElement, useState, useEffect } from 'react';
 import { file } from '@/common/utils';
+import { getUuid } from '@/common/utils';
 import cls from 'classnames';
 import styles from './index.module.scss';
 
+
+// 普通上传组件
 function Upload(props) {
-  const { className, children, onChange } = props;
+  const { className, children, onChange, accept } = props;
   const input = useRef(null);
 
+  // 打开上传文件对话框
   const openUploadDialog = () => {
     if (!input.current) return;
     input.current.click();
   }
 
+  // 上传文件
   const onUploadChange = (e) => {
     // 获取文件
     const files = e.target.files;
+    // 文件对象转数组
     const fileList = Object.entries(files).map(([_, f]) => f);
-    const responseList = file.getFileURL(fileList);
+    // 给文件添加uuid,以及上传时间戳
+    const resFiles = fileList.map(f => {
+      f.uuid = getUuid();
+      f.uploadTimeStamp = Date.now();
+      return f;
+    });
+    // 获取全部文件的预览URL
+    const responseList = file.getFileURL(resFiles);
+
     if (typeof onChange === 'function') {
       onChange(responseList);
     }
   }
 
+  // children渲染函数
   const childrenRender = () => {
     return Children.map(children, (child => {
       const { props: childProps = {} } = child;
@@ -41,16 +56,27 @@ function Upload(props) {
     }))
   }
 
+  // 获取文件上传限制
+  function getAccept() {
+    if (Array.isArray(accept)) {
+      return accept.join(',');
+    } else {
+      return accept;
+    }
+  }
+
   return (
     <div className={cls(styles.input, className)}>
       {childrenRender()}
-      <input ref={input} type="file" onChange={onUploadChange} />
+      <input ref={input} type="file" onChange={onUploadChange} accept={getAccept()} />
     </div>
   )
 }
 
+
+// 拖拽上传组件
 const DragUpload = (props) => {
-  const { children, onChange } = props;
+  const { children, onChange, ...rest } = props;
   const dropBox = useRef(null);
 
   useEffect(
@@ -83,9 +109,19 @@ const DragUpload = (props) => {
   function onDrop(e) {
     e.stopPropagation();
     e.preventDefault();
+
+    // 获取文件
     const { files } = e.dataTransfer;
+    // 文件对象转数组
     const fileList = Object.entries(files).map(([_, f]) => f);
-    const responseList = file.getFileURL(fileList);
+    // 给文件添加uuid,以及上传时间戳
+    const resFiles = fileList.map(f => {
+      f.uuid = getUuid();
+      f.uploadTimeStamp = Date.now();
+      return f;
+    });
+    // 获取所有上传文件的预览URL
+    const responseList = file.getFileURL(resFiles);
 
     if (typeof onChange === 'function') {
       onChange(responseList)
@@ -103,7 +139,7 @@ const DragUpload = (props) => {
 
   return (
     <div ref={dropBox} className={styles['drag-upload']} >
-      <Upload className={styles.upload} onChange={uploadChange}>
+      <Upload className={styles.upload} onChange={uploadChange} {...rest}>
         {children}
       </Upload>
     </div>

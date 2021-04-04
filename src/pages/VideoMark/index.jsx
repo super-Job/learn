@@ -1,6 +1,5 @@
 import React, { PureComponent } from 'react';
-import Upload from '@/components/lib/Upload';
-import Button from '@/components/lib/Button';
+import { UploadFile, FileType } from '@/components/biz';
 import styles from './index.module.scss';
 
 class VideoMark extends PureComponent {
@@ -11,28 +10,26 @@ class VideoMark extends PureComponent {
     };
   }
 
-
-  uploadChange = (files) => {
-    const { fileList } = this.state;
-    this.setState({ fileList: fileList.concat(files) });
+  uploadChange = (f, curFiles) => {
+    this.setState({ fileList: curFiles });
   }
 
 
   render() {
-    console.log(this.state.fileList)
+    const { fileList } = this.state;
 
     return (
       <div className={styles['motu-video-mark']}>
         <div className={styles.left}>
-          <div className={styles.upload}>
-            <Upload
-              onChange={this.uploadChange}
-            >
-              <Button>
-                上传视频
-              </Button>
-            </Upload>
+          <div className={styles.videoArea}>
+            <UploadFile
+              onChange={(file, curFiles, prevFiles) => this.uploadChange(file, curFiles, prevFiles)}
+              files={fileList}
+              type={FileType.Video}
+              buttonProps={{ style: { width: 200 } }}
+            />
           </div>
+
         </div>
         <div className={styles.right}>
           <div className={styles.preview}></div>
