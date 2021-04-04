@@ -23,16 +23,17 @@ function Upload(props) {
     // 文件对象转数组
     const fileList = Object.entries(files).map(([_, f]) => f);
     // 给文件添加uuid,以及上传时间戳
-    const resFiles = fileList.map(f => {
-      f.uuid = getUuid();
-      f.uploadTimeStamp = Date.now();
-      return f;
+    const resFiles = fileList.map(fileItem => {
+      return {
+        file: fileItem,
+        uuid: getUuid(),
+        uploadTimeStamp: Date.now(),
+        previewUrl: file.getSingleFileUrl(fileItem).previewUrl,
+      };
     });
-    // 获取全部文件的预览URL
-    const responseList = file.getFileURL(resFiles);
 
     if (typeof onChange === 'function') {
-      onChange(responseList);
+      onChange(resFiles);
     }
   }
 
@@ -115,16 +116,17 @@ const DragUpload = (props) => {
     // 文件对象转数组
     const fileList = Object.entries(files).map(([_, f]) => f);
     // 给文件添加uuid,以及上传时间戳
-    const resFiles = fileList.map(f => {
-      f.uuid = getUuid();
-      f.uploadTimeStamp = Date.now();
-      return f;
+    const resFiles = fileList.map(fileItem => {
+      return {
+        file: fileItem,
+        uuid: getUuid(),
+        uploadTimeStamp: Date.now(),
+        previewUrl: file.getSingleFileUrl(fileItem).previewUrl,
+      };
     });
-    // 获取所有上传文件的预览URL
-    const responseList = file.getFileURL(resFiles);
 
     if (typeof onChange === 'function') {
-      onChange(responseList)
+      onChange(resFiles)
     }
 
   }

@@ -14,7 +14,7 @@ $default-color1-4 :#111;
 
 
 
-// mixin
+//flex - mixin
 @mixin flex-center {
   display        : flex;
   justify-content: center;
@@ -25,4 +25,12 @@ $default-color1-4 :#111;
   display        : flex;
   justify-content: $jc;
   align-items    : $ai;
+}
+
+// grid - mixin
+@mixin grid($cloumns, $cgap:10px, $rgap:$cgap) {
+  display              : grid;
+  grid-template-columns: repeat(auto-fill, $cloumns);
+  grid-row-gap         : $rgap;
+  grid-column-gap      : $cgap;
 }

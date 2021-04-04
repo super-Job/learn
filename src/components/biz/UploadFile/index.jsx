@@ -54,7 +54,7 @@ const UploadFile = (props) => {
     const currentFileList = prevFileList.concat(files);
     fileList.current = [...currentFileList];
     if (typeof onChange === 'function') {
-      onChange(curFile, currentFileList, prevFileList);
+      onChange(currentFileList, prevFileList, curFile);
     }
   }
 
