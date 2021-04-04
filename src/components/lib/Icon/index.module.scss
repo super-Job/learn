@@ -1,0 +1,37 @@
+@mixin icon-size($size) {
+  width : $size;
+  height: $size;
+}
+
+.svg {}
+
+.size {
+  &-xxs {
+    @include icon-size(8px);
+  }
+
+  &-xs {
+    @include icon-size(12px);
+  }
+
+  &-small {
+    @include icon-size(16px);
+  }
+
+  &-middle {
+    @include icon-size(20px);
+  }
+
+  &-large {
+    @include icon-size(24px);
+  }
+
+  &-xl {
+    @include icon-size(28px);
+  }
+
+  &-xxl {
+    @include icon-size(32px);
+  }
+
+}

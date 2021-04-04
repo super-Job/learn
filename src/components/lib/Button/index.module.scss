@@ -5,6 +5,7 @@
   padding         : 4px 12px;
   background-color: $default-color1-3;
   color           : $default-color1-1;
+  cursor          : pointer;
 
   &:hover {
     background-color: rgba($default-color1-3, 0.9);

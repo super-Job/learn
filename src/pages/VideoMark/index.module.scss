@@ -1,7 +1,20 @@
+.container {
+  height: 100%;
+  @include flex-base1(center, center);
+  flex-direction: column;
+}
+
+.videoList {
+  width   : 100%;
+  height  : 0px;
+  overflow: hidden;
+}
+
 .motu {
   &-video-mark {
-    height : 100%;
+    width  : 100%;
     display: flex;
+    flex   : 1;
 
     .left {
       height          : 100%;
@@ -18,6 +31,7 @@
         background-color: rgba($default-color1-2, 0.5);
         border-radius   : 5px;
         margin-bottom   : 12px;
+        color           : #fff;
       }
     }
 

@@ -1,18 +1,57 @@
 $video-width:65px;
 
-.container {
-  width     : 100%;
-  height    : 100%;
-  overflow  : auto;
-  padding   : 10px;
-  box-sizing: border-box;
-  @include grid($video-width);
+
+@mixin box-padding($size, $col) {
+  padding: $size $col (24px+$size);
 }
 
-.test {
+.container {
+  width           : 100%;
+  position        : relative;
+  box-sizing      : border-box;
+  overflow        : hidden;
+  background-color: rgba(#ff0, 0.1);
+
+  .fileList {
+    width     : 100%;
+    transition: all 0.3s;
+    display   : flex;
+    flex-wrap : nowrap;
+  }
+
+  .active {
+    height: (1280 * $video-width) / 720;
+    @include box-padding(12px, 12px);
+    opacity: 1;
+  }
+
+  .default {
+    height: 0;
+    @include box-padding(0, 12px);
+    opacity: 0;
+  }
+
+  .drag {
+    position        : absolute;
+    bottom          : 0;
+    left            : 0;
+    width           : 100%;
+    height          : 24px;
+    background-color: rgba($default-color1-2, 0.5);
+    @include flex-center();
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba($default-color1-3, .8);
+    }
+  }
+}
+
+.video {
   height          : (1280 * $video-width) / 720;
-  background-color:black;
+  background-color: black;
   @include flex-center();
+  margin-right: 12px;
 
   &>video {
     max-width : 100%;
