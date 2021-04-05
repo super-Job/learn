@@ -1,5 +1,6 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useRef } from 'react';
 import { Icon } from '@/components/lib';
+import { useMedia } from '@/common/hooks';
 import styles from './index.module.scss';
 
 
@@ -7,9 +8,11 @@ function VideoCard(props) {
   const { data = {} } = props;
   const { previewUrl } = data || {};
   const videoRef = useRef(null);
+  const { media } = useMedia({ video: videoRef.current });
+
 
   function onSwitch() {
-
+    console.log(media);
   }
 
   return (

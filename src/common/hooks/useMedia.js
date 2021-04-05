@@ -5,7 +5,7 @@ function useMedia(props) {
   const { video, } = props;
   const [media, setMedia] = useState(null);
   const [playStatus, setPlayStatus] = useState(false);
-  const [videoInfo, setVideoInfo] = useState({ currentTime, duration });
+  const [videoInfo, setVideoInfo] = useState({ currentTime: 0, duration: NaN });
 
   useEffect(
     () => {
@@ -16,13 +16,13 @@ function useMedia(props) {
     [video]
   )
 
+  console.log(media, '???')
+
 
   return {
     media,
     playStatus,
     setPlayStatus,
-
-
   }
 
 }
