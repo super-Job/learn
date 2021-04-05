@@ -8,14 +8,9 @@ function VideoCard(props) {
   const { previewUrl } = data || {};
   const videoRef = useRef(null);
 
-  useEffect(
-    () => {
-      if (!videoRef.current) return;
-      const video = videoRef.current;
-      console.log(data);
-    },
-    []
-  )
+  function onSwitch() {
+
+  }
 
   return (
     <div className={styles.card}>
@@ -25,7 +20,7 @@ function VideoCard(props) {
         src={previewUrl}
       />
 
-      <div className={styles.play}>
+      <div className={styles.play} onClick={onSwitch}>
         <Icon type="iconbofang2" size="large" color="black" />
       </div>
     </div>
