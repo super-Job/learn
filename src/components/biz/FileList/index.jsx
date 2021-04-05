@@ -17,9 +17,23 @@ function FileList(props) {
     [files?.length]
   )
 
+  // 下拉事件
   function onDrag(e) {
     setActive(!active);
     e.stopPropagation();
+  }
+
+  // 卡片渲染函数
+  function cardRender(data) {
+    switch (type) {
+      case FileType.Video: {
+        return (
+          <VideoCard data={data} />
+        )
+      }
+
+      default: return null;
+    }
   }
 
   return (
@@ -29,10 +43,10 @@ function FileList(props) {
         [styles.default]: !active,
       })}>
         {
-          files.map(f => {
+          !!files?.length && files.map(f => {
             return (
               <div className={styles.video} key={f.uuid}>
-                <video src={f.previewUrl} controls></video>
+                {cardRender(f)}
               </div>
             )
           })

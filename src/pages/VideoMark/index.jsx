@@ -20,7 +20,7 @@ class VideoMark extends PureComponent {
 
     return (
       <div className={styles.container}>
-        <FileList files={fileList} />
+        <FileList files={fileList} type={FileType.Video} />
         <div className={styles['motu-video-mark']}>
           <div className={styles.left}>
             <UploadFile
