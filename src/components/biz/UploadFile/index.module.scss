@@ -10,7 +10,7 @@
     height   : 100px;
     padding  : 3px;
     font-size: 12px;
-    @include flex-base1(flex-start, center);
+    @include flex(flex-start, center);
     flex-direction: column;
     color         : #aaa;
 

@@ -1,6 +1,6 @@
 .container {
   height: 100%;
-  @include flex-base1(center, center);
+  @include flex(center, center);
   flex-direction: column;
 }
 

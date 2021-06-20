@@ -3,16 +3,14 @@ import { Icon } from '@/components/lib';
 import { useMedia } from '@/common/hooks';
 import styles from './index.module.scss';
 
-
 function VideoCard(props) {
   const { data = {} } = props;
   const { previewUrl } = data || {};
   const videoRef = useRef(null);
-  const { media } = useMedia({ video: videoRef.current });
+  const { media, playing } = useMedia({ videoRef });
 
-
-  function onSwitch() {
-    console.log(media);
+  function onToggle() {
+    media.toggle();
   }
 
   return (
@@ -23,8 +21,8 @@ function VideoCard(props) {
         src={previewUrl}
       />
 
-      <div className={styles.play} onClick={onSwitch}>
-        <Icon type="iconbofang2" size="large" color="black" />
+      <div className={styles.play} onClick={onToggle}>
+        <Icon type={playing ? "iconpause-full" : "iconbofang2"} size="large" color="black" />
       </div>
     </div>
   )

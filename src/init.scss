@@ -21,7 +21,7 @@ $default-color1-4 :#111;
   align-items    : center;
 }
 
-@mixin flex-base1($jc, $ai) {
+@mixin flex($jc, $ai) {
   display        : flex;
   justify-content: $jc;
   align-items    : $ai;
@@ -33,6 +33,11 @@ $default-color1-4 :#111;
   grid-template-columns: repeat(auto-fill, $cloumns);
   grid-row-gap         : $rgap;
   grid-column-gap      : $cgap;
+}
+
+@mixin size($w, $h) {
+  width : $w;
+  height: $h;
 }
 
 

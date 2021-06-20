@@ -11,7 +11,7 @@ class VideoMark extends PureComponent {
     };
   }
 
-  uploadChange = (curFiles) => {
+  uploadChange(curFiles) {
     this.setState({ fileList: [...curFiles] });
   }
 

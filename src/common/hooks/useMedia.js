@@ -1,28 +1,46 @@
 import { useState, useEffect } from 'react';
-import { Media } from '@/common/lib';
+import Wands from 'wands';
 
 function useMedia(props) {
-  const { video, } = props;
+  const { videoRef, } = props;
   const [media, setMedia] = useState(null);
-  const [playStatus, setPlayStatus] = useState(false);
+  const [playing, setPlaying] = useState(false);
   const [videoInfo, setVideoInfo] = useState({ currentTime: 0, duration: NaN });
 
   useEffect(
     () => {
+      const video = videoRef.current;
       if (!video) return;
-      const media = new Media(video);
+      const media = new Wands(video);
       setMedia(media);
+
+      // media.loop = true;
+
+      // media.startTime = 3000;
+      media.endTime = 10000;
+
+      media.on('playstatus', onPlayStatus);
+      media.on('timeupdate', onTimeUpdate);
+      media.on('loadeddata', (ev) => { });
+      return () => {
+        media.destory();
+      }
     },
-    [video]
+    []
   )
 
-  console.log(media, '???')
+  function onPlayStatus(ev) {
+    const { playing } = ev;
+    setPlaying(playing);
+  }
 
+  function onTimeUpdate(ev) {
+    console.log(ev,'????')
+  }
 
   return {
     media,
-    playStatus,
-    setPlayStatus,
+    playing,
   }
 
 }
